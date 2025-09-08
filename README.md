@@ -2,7 +2,7 @@
 **The effective operation of civil infrastructure is crucial for economic stability. To ensure continued performance, regular maintenance is essential. However, underground infrastructure, like culverts, posed more significant challenges in managing and preserving these critical assets, such as maneuverability and danger, slow labor intensive, defect localization, and superficial assessment. In this paper, we propose a cost-effective solution for infrastructure inspection through the development of MS-CAIS, a Multi-Sensor (MS) Culvert Autonomous Inspection System. Our solution integrates multiple vision cameras, a densed LiDAR, a deep learning based defect segmentation system, lighting systems, and non-destructive evaluation (NDE) methods for a comprehensive condition assessment. The system is paired with a POMDP-based autonomous framework, as well as alternative modes that support visual-only inspection and full inspection. Experimental validation in both simulated and real-world culverts demonstrates the effectiveness of MS-CAIS in enhancing inspection effectiveness and practicality.**
 
 <p align='center'>
-    <img src="./pic/ms-robot.png" alt="drawing" width="800"/>
+    <img src="./pic/robot(2).png" alt="drawing" width="800"/>
 </p>
 
 ## Dependencies
