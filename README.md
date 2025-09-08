@@ -59,10 +59,12 @@ rosrun ms_cais sim_ms_test.py
 ```
 
 ## Results
+#### Indoor
 <p align='center'>
     <img src="./pic/indoor_fusion_traj.png" alt="drawing" width="800"/>
 </p>
 
+#### Outdoor
 <p align='center'>
     <img src="./pic/outdoor_fusion_traj.png" alt="drawing" width="800"/>
 </p>
