@@ -53,7 +53,10 @@ mv bigger_rough_3crack_2spall ~/.gazebo/model/
 ## Simulations
 ```
 # launch sim environment
+# 5DF
 roslaunch turtlebot3_culvert.launch
+# 10DF
+roslaunch turtlebot3_culvert_2x.launch
 # launch MS-CAIS
 rosrun ms_cais sim_ms_test.py
 ```
