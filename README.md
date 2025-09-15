@@ -55,12 +55,16 @@ mv bigger_rough_3crack_2spall ~/.gazebo/model/
 # launch sim environment
 # 5DF
 roslaunch turtlebot3_culvert.launch
+rosrun ms_cais sim_ms_test.py
 # 10DF
 roslaunch turtlebot3_culvert_2x.launch
-# launch MS-CAIS
-rosrun ms_cais sim_ms_test.py
+rosrun ms_cais sim_ms_test_10df.py
 ```
 
+# Real Life
+```
+
+```
 ## Results
 #### Indoor
 <p align='center'>
