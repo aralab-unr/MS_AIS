@@ -172,6 +172,142 @@ def generate_uniform_grid(w, l, h, offset_x=0.0, offset_y=0.0, offset_z=0.0, sca
 
     return all_pose
 
+def generate_uniform_grid_(w, l, h, offset_x=0.0, offset_y=0.0, offset_z=0.0, scale=10, l_scale=5):
+    # Generate uniform grid coordinates on left and right sides
+    # num_points_x = max(round(w*scale),10)
+    # num_points_y = max(round(l*scale),10)
+    # num_points_z = max(round(h*scale),10)
+
+    # y_left, z_left = np.meshgrid(np.linspace(0, l, num_points_y),
+    #                              np.linspace(0, h, num_points_z))
+    # y_right, z_right = np.meshgrid(np.linspace(0, l, num_points_y),
+    #                                np.linspace(0, h, num_points_z))
+
+    # # Generate uniform grid coordinates on top face
+    # x_top, y_top = np.meshgrid(np.linspace(0, w, num_points_x),
+    #                            np.linspace(0, l, round(l*scale)))
+
+    # left_points = np.column_stack((np.zeros(num_points_y * num_points_z), y_left.flatten(), z_left.flatten()))
+    # right_points = np.column_stack((np.ones(num_points_y * num_points_z) * w, y_right.flatten(), z_right.flatten()))
+    # top_points = np.column_stack((x_top.flatten(), y_top.flatten(), np.ones(num_points_x * num_points_y) * h))
+
+    # # Combine all points into a single array
+    # all_points = np.vstack((left_points, right_points, top_points))
+
+    # all_points[:,0] += offset_x
+    # all_points[:,1] += offset_y
+    # all_points[:,2] += offset_z
+    # # Remove duplicate points
+    # unique_points, unique_indices = np.unique(all_points, axis=0, return_index=True)
+    # # print(all_points.shape, unique_points.shape)
+
+    # # Extract unique points for each face
+    # # num_left = num_points_y * num_points_z
+    # # num_right = num_points_y * num_points_z
+    # # num_top = num_points_x * num_points_y
+
+    # # unique_left_points = unique_points[:num_left]
+    # # unique_right_points = unique_points[num_left:num_left + num_right]
+    # # unique_top_points = unique_points[num_left + num_right:num_left + num_right + num_top]
+
+    # # return unique_left_points, unique_right_points, unique_top_points
+    # return unique_points
+
+    # Generate uniform grid coordinates for left and right sides (XZ planes)
+
+    # num_points_x = max(round(l * scale), 3)
+    # num_points_z = max(round(h * scale), 3)
+    # num_points_y = max(round(w * scale), 3)
+
+    # x_left, z_left = np.meshgrid(np.linspace(0, l, num_points_x),
+    #                              np.linspace(0, h, num_points_z))
+    # x_right, z_right = np.meshgrid(np.linspace(0, l, num_points_x),
+    #                                np.linspace(0, h, num_points_z))
+
+    # # Generate uniform grid coordinates on the top face (XY plane)
+    # x_top, y_top = np.meshgrid(np.linspace(0, l, num_points_x),
+    #                            np.linspace(0, w, num_points_y))
+
+    # left_points = np.column_stack((x_left.flatten(), np.zeros(num_points_x * num_points_z), z_left.flatten()))
+    # right_points = np.column_stack((x_right.flatten(), np.ones(num_points_x * num_points_z) * w, z_right.flatten()))
+    # top_points = np.column_stack((x_top.flatten(), y_top.flatten(), np.ones(num_points_x * num_points_y) * h))
+    
+    # # Combine all points into a single array
+    # all_points = np.vstack((left_points, right_points, top_points))
+
+    # # Apply offsets
+    # all_points[:, 0] += offset_x
+    # all_points[:, 1] += offset_y
+    # all_points[:, 2] += offset_z
+
+    # # Remove duplicate points
+    # unique_points, unique_indices = np.unique(all_points, axis=0, return_index=True)
+
+    # return unique_points
+
+    num_points_x = max(round(l * l_scale), 3)
+    num_points_z = max(round(h * scale), 3)
+    num_points_y = max(round(w * scale), 3)
+
+    # Generate meshgrid for each plane
+    x_left, z_left = np.meshgrid(np.linspace(0, l, num_points_x), np.linspace(0, h, num_points_z))
+    x_right, z_right = np.meshgrid(np.linspace(0, l, num_points_x), np.linspace(0, h, num_points_z))
+    x_top, y_top = np.meshgrid(np.linspace(0, l, num_points_x), np.linspace(0, w, num_points_y))
+
+    # Generate 3D points for each plane
+    left_points = np.column_stack((x_left.flatten(), np.zeros(num_points_x * num_points_z), z_left.flatten()))
+    right_points = np.column_stack((x_right.flatten(), np.ones(num_points_x * num_points_z) * w, z_right.flatten()))
+    top_points = np.column_stack((x_top.flatten(), y_top.flatten(), np.ones(num_points_x * num_points_y) * h))
+
+    # Calculate centers for left_points on the XZ plane
+    center_x_left = (x_left[:-1, :-1] + x_left[1:, :-1] + x_left[:-1, 1:] + x_left[1:, 1:]) / 4
+    center_z_left = (z_left[:-1, :-1] + z_left[1:, :-1] + z_left[:-1, 1:] + z_left[1:, 1:]) / 4
+    center_y_left = np.zeros_like(center_x_left)  # Y remains 0 for the left plane
+    center_points_left = np.column_stack((center_x_left.flatten(), center_y_left.flatten(), center_z_left.flatten()))
+
+    # Calculate centers for right_points on the XZ plane at Y = w
+    center_x_right = (x_right[:-1, :-1] + x_right[1:, :-1] + x_right[:-1, 1:] + x_right[1:, 1:]) / 4
+    center_z_right = (z_right[:-1, :-1] + z_right[1:, :-1] + z_right[:-1, 1:] + z_right[1:, 1:]) / 4
+    center_y_right = np.ones_like(center_x_right) * w  # Y = w for the right plane
+    center_points_right = np.column_stack((center_x_right.flatten(), center_y_right.flatten(), center_z_right.flatten()))
+
+    # Calculate centers for top_points on the XY plane at Z = h
+    center_x_top = (x_top[:-1, :-1] + x_top[1:, :-1] + x_top[:-1, 1:] + x_top[1:, 1:]) / 4
+    center_y_top = (y_top[:-1, :-1] + y_top[1:, :-1] + y_top[:-1, 1:] + y_top[1:, 1:]) / 4
+    center_z_top = np.ones_like(center_x_top) * h  # Z = h for the top plane
+    center_points_top = np.column_stack((center_x_top.flatten(), center_y_top.flatten(), center_z_top.flatten()))
+
+    # # Combine all points into a single array
+    # all_points = np.vstack((left_points, right_points, top_points))
+    # unique_points, unique_indices = np.unique(all_points, axis=0, return_index=True)
+
+    # Combine all CENTER points into a single array
+    all_points = np.vstack((center_points_left, center_points_right))#, center_points_top))
+
+    rotation_top = R.from_euler('y', 90, degrees=True)
+    quaternion_top = rotation_top.as_quat()
+
+    # Left points pointing right
+    rotation_left = R.from_euler('z', 90, degrees=True)
+    quaternion_left = rotation_left.as_quat()
+
+    # Right points pointing left
+    rotation_right = R.from_euler('z', -90, degrees=True)
+    quaternion_right = rotation_right.as_quat()
+    all_orientations = np.vstack((
+        np.tile(quaternion_left, (center_points_left.shape[0], 1)),
+        np.tile(quaternion_right, (center_points_right.shape[0], 1)),
+        #np.tile(quaternion_top, (center_points_top.shape[0], 1))
+    ))
+
+    all_pose = np.hstack((all_points, all_orientations))
+    # Apply offsets
+    all_pose[:, 0] += offset_x
+    all_pose[:, 1] += offset_y
+    all_pose[:, 2] += offset_z
+
+    return all_pose
+
 
 def generate_robot_state(w, l, offset_x=0.0, offset_y=0.0, offset_z=0.0, scale_x=10, scale_y=10):
     num_points_x = max(round(l * scale_x), 2)

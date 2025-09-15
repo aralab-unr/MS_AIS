@@ -21,7 +21,6 @@ from ultralytics import YOLO
 # custom lib
 from utils import *
 from belief import *
-import time
 
 
 def merge_point_clouds(observations, threshold=0.01, min_matches=5):
@@ -315,7 +314,6 @@ class Sim_MS:
         self.lin = 0.2 #0.1
 
         self.start = True
-        self.start_time = time.time()
         # rospy.wait_for_message("/lucid_camera_0/image_rect_color", Image)
         # rospy.wait_for_message("/lucid_camera_1/image_rect_color", Image)
         # rospy.wait_for_message("/lucid_camera_2/image_rect_color", Image)
@@ -477,7 +475,6 @@ class Sim_MS:
             # shutdown when exist
             print("Total Discounted Reward: ", self.reward)
             print("Total Reward: ", self.reward_)
-            print("Time: ", time.time() - self.start_time)
             rospy.signal_shutdown("Task Done.")
         
         # if self.new_action:
@@ -1220,10 +1217,10 @@ if __name__ == "__main__":
     try:
         # Retrieve parameters from the ROS parameter server or use defaults
         w = rospy.get_param('~w', 1.2)
-        l = rospy.get_param('~l', 4.0)
+        l = rospy.get_param('~l', 8.0)
         h = rospy.get_param('~h', 0.7)
-        scale = rospy.get_param('~scale', 3.5)
-        offset_x = rospy.get_param('~offset_x', 0.0)
+        scale = rospy.get_param('~scale', 3.3)
+        offset_x = rospy.get_param('~offset_x', 0.0-0.011357)
         offset_y = rospy.get_param('~offset_y', -0.6 + 0.013)
         offset_z = rospy.get_param('~offset_z', 0.0)
 
