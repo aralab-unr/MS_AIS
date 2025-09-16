@@ -1,0 +1,11 @@
+<launch>
+
+    <include file="$(find xarm_planner)/launch/xarm_planner_realHW.launch">
+        <arg name="robot_dof" value="5" />
+        <arg name="robot_ip" value="192.168.1.218" />
+    </include>
+    <node name="add_obstacles" pkg="add_obstacle" type="add_obstacle_node" output="screen"/>
+
+    <include file="$(find add_obstacle)/launch/ER_serial.launch"/>
+
+</launch>

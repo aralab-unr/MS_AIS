@@ -1,0 +1,22 @@
+<launch>
+  <!-- left cam -->
+  <include file="$(find titan_cameras)/launch/ATL071S-C.launch">
+    <arg name="camera_name_long"   default="lucid_camera_0" />
+    <arg name="serial_number"      default="231201303"/>
+    <arg name="camera_info_url"    default="package://titan_cameras/config/calib/231201303.yaml"/>
+  </include>
+  <!-- center cam -->
+  <include file="$(find titan_cameras)/launch/ATL071S-C.launch">
+    <arg name="camera_name_long"   default="lucid_camera_1" />
+    <arg name="serial_number"      default="231001354"/>
+    <arg name="camera_info_url"    default="package://titan_cameras/config/calib/231001354.yaml"/>
+  
+  </include>
+  <!-- right cam -->
+  <include file="$(find titan_cameras)/launch/ATL071S-C.launch">
+    <arg name="camera_name_long"   default="lucid_camera_2" />
+    <arg name="serial_number"      default="231001355"/>
+    <arg name="camera_info_url"    default="package://titan_cameras/config/calib/231001355.yaml"/>
+  </include>
+
+</launch>

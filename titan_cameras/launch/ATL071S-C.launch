@@ -1,0 +1,90 @@
+<launch>
+  <arg name="machine"                                default=""/>
+
+  <arg name="camera_name_long"                        default="lucid_camera" />
+  <arg name="camera_name_short"                       default="" />
+  <arg name="serial_number"                           default=""/>
+  <arg name="optical_frame"                           default="$(arg camera_name_long)/optical_frame" />
+  <arg name="enable_ptp"                              default="false" />
+  <arg name="ptp_master"                              default="false" />
+  <arg name="frame_rate"                              default="5" />
+
+  <arg name="run_as_nodelet"                          default="false" />
+  <arg name="nodelet_manager"                         default="nodelet_manager" />
+  <arg name="nodelet_namespace"                       default="vision" />
+  <arg name="start_nodelet_manager"                   default="true" />
+
+  <arg name="camera_info_url"                         default="package://titan_cameras/config/calib/231201303.yaml"/>
+  <!-- package://titan_cameras/config/calib/231001354.yaml -->
+  <arg name="configuration_file"                      default="$(find titan_cameras)/config/sync_master.yaml"/>
+
+  <!-- Nodelet -->
+  <group if="$(arg run_as_nodelet)">
+   <!-- Nodelet manager -->
+    <node if="$(arg start_nodelet_manager)" 
+    ns="/$(arg nodelet_namespace)" name="$(arg nodelet_manager)" 
+    pkg="nodelet" type="nodelet"  args="manager"/>
+    
+    <!-- Clear dynamic param server -->
+    <!-- <rosparam command="delete"   param="$(arg camera_name_long)" /> -->
+
+    <!-- Start Nodelet -->
+    <node pkg="nodelet" type="nodelet" 
+          machine="$(arg machine)" output="screen"
+          name="$(arg camera_name_long)"
+          args="load lucid_camera_driver/lucid_camera_nodelet $(arg nodelet_manager)" >
+      <remap from="image_raw"        to="/$(arg nodelet_namespace)$(arg camera_name_long)/image_raw"/>
+
+      <param name="camera_name"      type="string"  value="$(arg camera_name_short)" />
+      <param name="frame_rate"       type="double"  value="$(arg frame_rate)" />
+      <param name="image_encoding"   type="string"  value="bayer_rggb8"/>
+      <param name="frame_id"         type="string"  value="$(arg optical_frame)" />
+      <param name="camera_info_url"  type="string"  value="$(arg camera_info_url)" />
+      <param name="enable_ptp"       type="bool"    value="$(arg enable_ptp)" />
+      <param name="ptp_master"       type="bool"    value="$(arg ptp_master)" />
+      <param name ="use_camera_time" type="bool"    value="$(arg enable_ptp)" />
+      <param name="serial_number"    type="string"  value="$(arg serial_number)"/>
+      <rosparam command="load" file="$(arg configuration_file)"/>
+    </node>
+  </group>
+
+  <!-- Node -->
+  <group unless="$(arg run_as_nodelet)">
+
+    <!-- Clear dynamic param server -->
+    <!-- <rosparam command="delete"   param="$(arg camera_name_long)" /> -->
+
+    <!-- Start Node -->
+    <node pkg="lucid_camera_driver" type="lucid_camera"  
+          machine="$(arg machine)" respawn="true" output="screen"
+          name="$(arg camera_name_long)" >
+      <param name="camera_name"      type="string"  value="$(arg camera_name_short)" />
+      <param name="serial_number"    type="string"  value="$(arg serial_number)"/>
+      <param name="frame_rate"       type="double"  value="$(arg frame_rate)" />
+      <param name="image_encoding"   type="string"  value="bayer_rggb8"/>
+      <param name="frame_id"         type="string"  value="$(arg optical_frame)" />
+      <param name="camera_info_url"  type="string"  value="$(arg camera_info_url)" />
+      <param name="enable_ptp"       type="bool"    value="$(arg enable_ptp)" />
+      <param name="ptp_master"       type="bool"    value="$(arg ptp_master)" />
+      <param name ="use_camera_time" type="bool"    value="$(arg enable_ptp)" />
+      <rosparam command="load" file="$(arg configuration_file)"/>
+    </node>
+  </group>
+
+  <node pkg="image_proc" type="image_proc"  respawn="true" output="screen"
+          name="$(arg camera_name_long)_proc_rect" >
+    <remap from="image_raw"   to="$(arg camera_name_long)/image_raw"  />   
+    <remap from="camera_info" to="$(arg camera_name_long)/camera_info"/>  
+    <remap from="image_mono"  to="$(arg camera_name_long)/image_mono" />  
+    <remap from="image_rect"  to="$(arg camera_name_long)/image_rect" />  
+    <remap from="image_color" to="$(arg camera_name_long)/image_color"/>   
+    <remap from="image_rect_color"   to="$(arg camera_name_long)/image_rect_color"  />          
+  </node>
+
+  <!-- <node pkg="rosbag" type="record" name="rosbag_record_diag"
+    args=" -o $(find titan_perception)/bag/231001354
+    /lucid_camera/image_raw
+    /lucid_camera/camera_info
+  "/>    -->
+
+</launch>

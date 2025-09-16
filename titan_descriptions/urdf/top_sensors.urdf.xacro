@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="robot" xmlns:xacro="http://ros.org/wiki/xacro">
+<xacro:property name="PI" value="3.1415926535897931" />
+  <!-- TODO: measure -->
+  <xacro:property name="t_slot_extrusion_width" value="0.065"/>
+  <xacro:property name="velodyne_mount_height" value="0.01651"/>
+
+  <link name="circle_base_link"/>
+
+
+  <link name="extrusion"/>
+
+  <joint name="circle_to_extrusion_joint" type="fixed">
+    <parent link="circle_base_link" />
+    <child link="extrusion" />
+    <origin xyz="0 0 ${0.025+t_slot_extrusion_width/2}" rpy="0 0 0" />
+  </joint>
+
+  <!-- Velodyne mount -->
+  <link name="velodyne_mount"/>
+
+  <joint name="extrusion_to_mount_joint" type="fixed">
+    <parent link="extrusion" />
+    <child link="velodyne_mount" />
+    <origin xyz="0 0 ${t_slot_extrusion_width/2 + velodyne_mount_height/2}" rpy="0 0 0" />
+  </joint>
+
+  <!-- Velodyne LiDAR -->
+  <link name="velodyne"/>
+
+  <joint name="mount_to_velodyne_joint" type="fixed">
+    <parent link="velodyne_mount" />
+    <child link="velodyne" />
+    <origin xyz="0 0 ${velodyne_mount_height/2 + 0.0378}" rpy="0 0 0" />
+  </joint>
+
+  <!-- lucid camera center -->
+  <link name="lucid_camera/connection_link"/>
+
+  <joint name="lucid_camera/connection_joint" type="fixed">
+    <origin xyz="0.032 -0.0989 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${72/180*PI}"/>
+    <!-- <origin xyz="0.104 0.000 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${0/180*PI}"/>  -->
+    <!-- <origin xyz="0.032 0.0989 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${+72/180*PI}"/>  -->
+    <parent link="circle_base_link"/>
+    <child link="lucid_camera/connection_link" />
+  </joint>
+
+  <!-- Alignment Frame -->
+  <link name="lucid_camera/alignment_frame"> </link>
+   
+  <joint name="lucid_camera/alignment_joint" type="fixed">
+    <origin xyz="${0.0255+0.0079-0.017526} 0 0.0145" rpy="0 0 0"/>
+    <parent link="lucid_camera/connection_link" />
+    <child link="lucid_camera/alignment_frame"/>
+  </joint>
+
+  <!-- Sensor_Frame -->
+  <link name="lucid_camera/sensor_frame"/>
+  <!-- alignment joint  -->
+  <joint name="lucid_camera/sensor_joint" type="floating">
+    <parent link="lucid_camera/alignment_frame"/>
+    <child link="lucid_camera/sensor_frame"/>
+  </joint>
+
+  <!-- Optical_Frame -->
+  <link name="lucid_camera/optical_frame"/>
+
+  <joint name="lucid_camera/optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-PI/2} 0.0 ${-PI/2}"/>
+    <parent link="lucid_camera/sensor_frame"/>
+    <child link="lucid_camera/optical_frame"/>
+  </joint>
+  <!-- 0.032137767414994536 0.09890987769469596 -->
+  <!-- Lucid Triton Cameras - Origin should be bottom surface at center of the mounting screws -->
+  <!-- <xacro:include filename="$(find lucid_camera_driver)/urdf/lucid.urdf.xacro"/>
+
+  <xacro:TRI028S-CC name="lucid_camera_0" parent="circle_base_link" >
+      <origin xyz="0.032 0.0989 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${+72/180*PI}"/> 
+  </xacro:TRI028S-CC> -->
+
+  <!-- <xacro:TRI028S-CC name="lucid_camera_1" parent="circle_base_link" is_sim="false" >
+      <origin xyz="0.104 0.000 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${0/180*PI}"/> 
+  </xacro:TRI028S-CC>
+
+  <xacro:TRI028S-CC name="lucid_camera_2" parent="circle_base_link" is_sim="false" >
+      <origin xyz="0.032 -0.0989 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${-72/180*PI}"/> 
+  </xacro:TRI028S-CC> -->
+
+</robot>

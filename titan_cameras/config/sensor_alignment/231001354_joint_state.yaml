@@ -1,0 +1,15 @@
+parent_frame: lucid_camera_1/alignment_frame
+child_frame: lucid_camera_1/sensor_frame
+x: 0
+y: 0
+z: -0.01
+roll: -0
+pitch: 0
+yaw: 0.02
+
+# x: 0.008
+# y: 0.097
+# z: 0.028
+# roll: -0.012
+# pitch: -0.001
+# yaw: -0.063

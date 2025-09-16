@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<robot name="robot" xmlns:xacro="http://ros.org/wiki/xacro">
+<xacro:property name="PI" value="3.1415926535897931" />
+  <!-- TODO: measure -->
+  <xacro:property name="global_frame" value="map"/>
+  <xacro:property name="dlio_global_frame" value="robot/odom"/>
+  <xacro:property name="dlio_base_link_frame" value="robot/base_link"/>
+  <!-- <xacro:property name="dlio_base_link_frame" value="os_sensor"/> -->
+  <!-- <xacro:property name="lidar_frame" value="robot/lidar"/> -->
+
+  <link name="${global_frame}"/>
+
+  <link name="${dlio_global_frame}"/>
+
+  <joint name="${global_frame}_to_${dlio_global_frame}_joint" type="fixed">
+    <!-- bunker height + perpection plat height + extrude height + tilt height + adjustment -->
+    <origin xyz="0.0 0.0 ${0.449 + 0.008 + 0.157 + 0.00625 + 0.01}" rpy="${0/180*PI} ${-0.1197/180*PI} ${0.0/180*PI}"/> 
+    <parent link="${global_frame}"/>
+    <child link="${dlio_global_frame}" />
+  </joint>
+
+  <link name="${dlio_base_link_frame}"/>
+
+  <joint name="${dlio_global_frame}_to_${dlio_base_link_frame}" type="floating">
+    <parent link="${dlio_global_frame}"/>
+    <child link="${dlio_base_link_frame}"/>
+  </joint>
+
+  <!-- ouster -->
+  <!-- <link name="${lidar_frame}"/> -->
+
+  <!-- <joint name="${dlio_global_frame}_to_${lidar_frame}" type="floating">
+    <parent link="${dlio_global_frame}"/>
+    <child link="${lidar_frame}"/>
+  </joint> -->
+
+  <!-- top of semicircle plate that contains lucid cameras -->
+  <link name="top_center_semicircle"/>
+
+  <joint name="${dlio_base_link_frame}_to_semicircle_joint" type="fixed">
+    <origin xyz="0.0 0.0 ${-0.157 - 0.00625}" rpy="${0/180*PI} ${-5.0/180*PI} ${0.0/180*PI}"/> 
+    <parent link="${dlio_base_link_frame}"/>
+    <child link="top_center_semicircle" />
+  </joint>
+
+  <link name="world"/>
+  <joint name="${dlio_base_link_frame}_to_base_arm_joint" type="fixed">
+    <origin xyz="${-0.315-0.05} 0.0 ${-0.157 - 0.00625}" rpy="${0/180*PI} ${-5.0/180*PI} ${0.0/180*PI}"/> 
+    <parent link="${dlio_base_link_frame}"/>
+    <child link="world" />
+  </joint>
+
+  <link name="robot_center"/>
+  <joint name="${dlio_base_link_frame}_to_robot_center_joint" type="fixed">
+    <origin xyz="${-0.315-0.2} 0.0 ${-0.157 - 0.00625}" rpy="${0/180*PI} ${-5.0/180*PI} ${0.0/180*PI}"/> 
+    <parent link="${dlio_base_link_frame}"/>
+    <child link="robot_center" />
+  </joint>
+
+  <!-- LEFT lucid camera  -->
+  <link name="lucid_camera_0/connection_link"/>
+
+  <joint name="lucid_camera_0/connection_joint" type="fixed">
+    <origin xyz="0.032 -0.0989 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${-72/180*PI}"/> 
+    <parent link="top_center_semicircle"/>
+    <child link="lucid_camera_0/connection_link" />
+  </joint>
+
+  <!-- Alignment Frame -->
+  <link name="lucid_camera_0/alignment_frame"> </link>
+   
+  <joint name="lucid_camera_0/alignment_joint" type="fixed">
+    <origin xyz="${0.0255+0.0079-0.017526} 0 0.0145" rpy="0 0 0"/>
+    <parent link="lucid_camera_0/connection_link" />
+    <child link="lucid_camera_0/alignment_frame"/>
+  </joint>
+
+  <!-- Sensor_Frame -->
+  <link name="lucid_camera_0/sensor_frame"/>
+  <!-- alignment joint  -->
+  <joint name="lucid_camera_0/sensor_joint" type="floating">
+    <parent link="lucid_camera_0/alignment_frame"/>
+    <child link="lucid_camera_0/sensor_frame"/>
+  </joint>
+
+  <!-- Optical_Frame -->
+  <link name="lucid_camera_0/optical_frame"/>
+
+  <joint name="lucid_camera_0/optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-PI/2} 0.0 ${-PI/2}"/>
+    <parent link="lucid_camera_0/sensor_frame"/>
+    <child link="lucid_camera_0/optical_frame"/>
+  </joint>
+
+  <!-- CENTER lucid camera -->
+  <link name="lucid_camera_1/connection_link"/>
+
+  <joint name="lucid_camera_1/connection_joint" type="fixed">
+    <origin xyz="0.104 0.000 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${0/180*PI}"/> 
+    <parent link="top_center_semicircle"/>
+    <child link="lucid_camera_1/connection_link" />
+  </joint>
+
+  <!-- Alignment Frame -->
+  <link name="lucid_camera_1/alignment_frame"> </link>
+   
+  <joint name="lucid_camera_1/alignment_joint" type="fixed">
+    <origin xyz="${0.0255+0.0079-0.017526} 0 0.0145" rpy="0 0 0"/>
+    <parent link="lucid_camera_1/connection_link" />
+    <child link="lucid_camera_1/alignment_frame"/>
+  </joint>
+
+  <!-- Sensor_Frame -->
+  <link name="lucid_camera_1/sensor_frame"/>
+  <!-- alignment joint  -->
+  <joint name="lucid_camera_1/sensor_joint" type="floating">
+    <parent link="lucid_camera_1/alignment_frame"/>
+    <child link="lucid_camera_1/sensor_frame"/>
+  </joint>
+
+  <!-- Optical_Frame -->
+  <link name="lucid_camera_1/optical_frame"/>
+
+  <joint name="lucid_camera_1/optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-PI/2} 0.0 ${-PI/2}"/>
+    <parent link="lucid_camera_1/sensor_frame"/>
+    <child link="lucid_camera_1/optical_frame"/>
+  </joint>
+
+  <!-- RIGHT lucid camera  -->
+  <link name="lucid_camera_2/connection_link"/>
+
+  <joint name="lucid_camera_2/connection_joint" type="fixed">
+    <origin xyz="0.032 0.0989 0.025" rpy="${0/180*PI} ${0.0/180*PI} ${72/180*PI}"/> 
+    <parent link="top_center_semicircle"/>
+    <child link="lucid_camera_2/connection_link" />
+  </joint>
+
+  <!-- Alignment Frame -->
+  <link name="lucid_camera_2/alignment_frame"> </link>
+   
+  <joint name="lucid_camera_2/alignment_joint" type="fixed">
+    <origin xyz="${0.0255+0.0079-0.017526} 0 0.0145" rpy="0 0 0"/>
+    <parent link="lucid_camera_2/connection_link" />
+    <child link="lucid_camera_2/alignment_frame"/>
+  </joint>
+
+  <!-- Sensor_Frame -->
+  <link name="lucid_camera_2/sensor_frame"/>
+  <!-- alignment joint  -->
+  <joint name="lucid_camera_2/sensor_joint" type="floating">
+    <parent link="lucid_camera_2/alignment_frame"/>
+    <child link="lucid_camera_2/sensor_frame"/>
+  </joint>
+
+  <!-- Optical_Frame -->
+  <link name="lucid_camera_2/optical_frame"/>
+
+  <joint name="lucid_camera_2/optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-PI/2} 0.0 ${-PI/2}"/>
+    <parent link="lucid_camera_2/sensor_frame"/>
+    <child link="lucid_camera_2/optical_frame"/>
+  </joint>
+  
+</robot>

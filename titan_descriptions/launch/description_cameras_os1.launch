@@ -1,0 +1,17 @@
+<launch> 
+  <arg name="machine"               default=""/>
+
+  <arg name="vehicle_config_path"   default="$(find titan_descriptions)"/>
+
+  <arg name="robot_description_path"     default="$(arg vehicle_config_path)/urdf/top_sensors_os1_cams.urdf.xacro" />
+
+  <!-- Load the robot_description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(arg robot_description_path)"/>
+  
+  <!-- Start Robot State Publisher -->
+  <node name="robot_state_publisher_robot" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <!-- <node name="robot_state_publisher_robot"
+        pkg="titan_descriptions"
+        type="delayed_rsp.sh"
+        output="screen" /> -->
+</launch>

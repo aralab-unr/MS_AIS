@@ -1,0 +1,21 @@
+<launch>
+    <!-- ER sensor -->
+    <node name="er_service" pkg="nde_er" type="er_service_node.py" output="screen" respawn="true">
+        <param name="~port" value="/dev/resipodER" />        
+    </node>
+    <!-- ultrasonic & limit switch  -->
+    <node name="serial_node0" pkg="rosserial_python" type="serial_node.py" output="screen" respawn="true">
+        <param name="port" value="/dev/ultrasonic" />        
+    </node>
+    <!-- limit switch -->
+    <!-- <node name="serial_node1" pkg="rosserial_python" type="serial_node.py" output="screen">
+        <param name="port" value="/dev/ttyUSB2" />        
+    </node> -->
+    <!-- pump ,leds -->
+    <node name="serial_node2" pkg="rosserial_python" type="serial_node.py" output="screen" respawn="true">
+        <param name="port" value="/dev/ttyACM0" />        
+    </node>
+    
+    <include file="$(find depthai_ros_driver)/launch/camera.launch"/>
+
+</launch>

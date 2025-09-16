@@ -1,0 +1,61 @@
+lucid_params:
+  # -
+  #   name: ExposureAutoLimitAuto
+  #   type: enum
+  #   value: 'Off'
+  # -
+  #   name: ExposureAutoUpperLimit
+  #   type: float
+  #   value: 30000.0
+  # -
+  #   name: ExposureAutoLimitAuto
+  #   type: enum
+  #   value: 'Continuous'
+  -
+    name: AcquisitionFrameRate
+    type: float
+    value: 20.0
+  -
+    name: TriggerMode
+    type: enum
+    value: 'Off'
+  -
+    name: LineSelector
+    type: enum
+    value: 'Line2'
+  -
+    name: LineMode
+    type: enum
+    value: 'Output'
+  -    
+    name: LineSource
+    type: enum
+    value: 'ExposureActive'
+  -
+    name: TargetBrightness
+    type: int
+    value: 55
+  -
+    name: ExposureAuto
+    type: enum
+    value: 'Continuous' # 'Off' # 
+  -
+    name: ExposureAutoAlgorithm
+    type: enum
+    value: 'Mean'
+  -
+    name: GainAuto
+    type: enum
+    value: 'Continuous' # 'Off' # 
+  -
+    name: Gamma
+    type: float
+    value: 1.0 # 'Off' # 
+  # -
+  #   name: ExposureTime
+  #   type: float
+  #   value: 5000.0 # micro second (us)
+  # -
+  #   name: Gain
+  #   type: float
+  #   value: 17.0 # dB 231201303 right, 231001354 front
