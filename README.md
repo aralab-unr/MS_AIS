@@ -18,7 +18,7 @@ The framework has been tested with ROS Noetic and Ubuntu 20.04. The following co
 ## ROS package
 - [depthai-ros](https://github.com/luxonis/depthai-ros/tree/noetic)
 - [lucid_camera_driver]() (private third-party; not publicly available) -> use [arena_camera_ros](https://github.com/lucidvisionlabs/arena_camera_ros) instead.
-- [kalibr] (https://github.com/ethz-asl/kalibr) for camera calibration
+- [kalibr](https://github.com/ethz-asl/kalibr) for camera calibration
 - [multi_sensor_alignment](https://github.com/Nosille/multi_sensor_alignment)
 - [dlio](https://github.com/vectr-ucla/direct_lidar_inertial_odometry)
 - [bunker_ros](https://github.com/agilexrobotics/bunker_ros)
