@@ -19,6 +19,7 @@ The framework has been tested with ROS Noetic and Ubuntu 20.04. The following co
 - [depthai-ros](https://github.com/luxonis/depthai-ros/tree/noetic)
 - [lucid_camera_driver]() (private third-party; not publicly available) -> use [arena_camera_ros](https://github.com/lucidvisionlabs/arena_camera_ros) instead.
 - [kalibr] (https://github.com/ethz-asl/kalibr) for camera calibration
+- [multi_sensor_alignment](https://github.com/Nosille/multi_sensor_alignment)
 - [dlio](https://github.com/vectr-ucla/direct_lidar_inertial_odometry)
 - [bunker_ros](https://github.com/agilexrobotics/bunker_ros)
 - [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3) (for simulations)
@@ -30,6 +31,7 @@ The framework has been tested with ROS Noetic and Ubuntu 20.04. The following co
 - [ouster_ros](https://github.com/ouster-lidar/ouster-ros)
 - [rosserial_arduino](http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup)
 - [xarm_ros](https://github.com/xArm-Developer/xarm_ros)
+- [ER_resipod]() (private third-party; not publicly available)
 
 ## Install
 Use the following commands to download and build the package: (The code is implemented in ROS1)
