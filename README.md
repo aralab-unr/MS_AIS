@@ -17,6 +17,8 @@ The framework has been tested with ROS Noetic and Ubuntu 20.04. The following co
 
 ## ROS package
 - [depthai-ros](https://github.com/luxonis/depthai-ros/tree/noetic)
+- [lucid_camera_driver]() (private third-party; not publicly available) -> use [arena_camera_ros](https://github.com/lucidvisionlabs/arena_camera_ros) instead.
+- [kalibr] (https://github.com/ethz-asl/kalibr) for camera calibration
 - [dlio](https://github.com/vectr-ucla/direct_lidar_inertial_odometry)
 - [bunker_ros](https://github.com/agilexrobotics/bunker_ros)
 - [turtlebot3](https://github.com/ROBOTIS-GIT/turtlebot3) (for simulations)
@@ -44,8 +46,7 @@ source devel/setup.bash
 Put [bigger_rough_3crack_2spall](https://github.com/aralab-unr/MS_CAIS/tree/master/model/bigger_rough_3crack_2spall) and all other model folder in ```.gazebo/model``` folder
 
 ```
-
-roscd ms_cais
+roscd culvert_sim
 cd model
 mv bigger_rough_3crack_2spall ~/.gazebo/model/
 ```
@@ -54,11 +55,11 @@ mv bigger_rough_3crack_2spall ~/.gazebo/model/
 ```
 # launch sim environment
 # 5DF
-roslaunch turtlebot3_culvert.launch
-rosrun ms_cais sim_ms_test.py
+roslaunch culvert_sim turtlebot3_culvert.launch
+rosrun culvert_sim sim_ms_test.py
 # 10DF
 roslaunch turtlebot3_culvert_2x.launch
-rosrun ms_cais sim_ms_test_10df.py
+rosrun culvert_sim sim_ms_test_10df.py
 ```
 
 # Real Life
