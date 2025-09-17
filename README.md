@@ -78,11 +78,16 @@ roslaunch add_obstacle xarm.launch
 <p align='center'>
     <img src="pic/mos-5df.png" alt="drawing" width="800"/>
 </p>
+
+##### AIS
+
 #### 10DF
 ##### MOS
 <p align='center'>
     <img src="pic/mos-10df.png" alt="drawing" width="800"/>
 </p>
+
+##### AIS
 
 ### Indoor
 <p align='center'>
