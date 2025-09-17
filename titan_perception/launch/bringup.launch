@@ -1,0 +1,7 @@
+<launch>
+
+  <include file="$(find titan_perception)/launch/perception.launch"/>
+  <include file="$(find add_obstacle)/launch/xarm.launch"/>
+
+  
+</launch>

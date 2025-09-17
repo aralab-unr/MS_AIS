@@ -1,0 +1,20 @@
+<launch>
+
+  <include file="$(find titan_perception)/launch/sensor_alignment.launch">
+    <arg name="namespace"             default="sensor_alignment"/>
+    <arg name="sensor_id"             default="231001354"/>
+  </include>
+
+  <include file="$(find titan_perception)/launch/sensor_alignment.launch">
+    <arg name="namespace"             default="sensor_alignment"/>
+    <arg name="sensor_id"             default="231201303"/>
+  </include>
+
+  <include file="$(find titan_perception)/launch/sensor_alignment.launch">
+    <arg name="namespace"             default="sensor_alignment"/>
+    <arg name="sensor_id"             default="231001355"/>
+  </include>
+
+  <include file="$(find titan_perception)/launch/cameras_os1.launch"/>
+  
+</launch>

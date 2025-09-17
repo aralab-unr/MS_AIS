@@ -1,0 +1,17 @@
+<launch>
+
+
+  <include file="$(find ouster_ros)/launch/driver.launch">
+    <arg name="sensor_hostname" value="169.254.71.219"/>
+    <arg name="timestamp_mode" value="TIME_FROM_ROS_TIME"/>
+    <arg name="viz" value="false" />
+    <arg name="lidar_mode" value="512x10" />
+    <arg name="proc_mask" value="IMU|PCL" />
+    <arg name="rviz_config" value="$(find titan_perception)/rviz/alignment.rviz"/>
+  </include>
+
+  <include file="$(find titan_cameras)/launch/cameras.launch"/>
+  <include file="$(find titan_descriptions)/launch/description_cameras_os1.launch"/>
+
+   
+</launch>

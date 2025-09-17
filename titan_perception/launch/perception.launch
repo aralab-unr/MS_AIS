@@ -1,0 +1,7 @@
+<launch>
+
+  <include file="$(find titan_perception)/launch/alignment.launch"/>
+  <include file="$(find direct_lidar_inertial_odometry)/launch/dlio.launch"/>
+
+  
+</launch>
