@@ -72,12 +72,24 @@ roslaunch titan_perception perception.launch
 roslaunch add_obstacle xarm.launch
 ```
 ## Results
-#### Indoor
+### Simulations
+#### 5DF
+##### MOS
+<p align='center'>
+    <img src="pic/mos-5df.png" alt="drawing" width="800"/>
+</p>
+#### 10DF
+##### MOS
+<p align='center'>
+    <img src="pic/mos-10df.png" alt="drawing" width="800"/>
+</p>
+
+### Indoor
 <p align='center'>
     <img src="pic/indoor_fusion_traj.png" alt="drawing" width="800"/>
 </p>
 
-#### Outdoor
+### Outdoor
 <p align='center'>
     <img src="pic/outdoor_fusion_traj.png" alt="drawing" width="800"/>
 </p>
