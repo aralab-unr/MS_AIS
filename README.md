@@ -63,14 +63,6 @@ rosrun culvert_sim sim_ms_test.py
 roslaunch turtlebot3_culvert_2x.launch
 rosrun culvert_sim sim_ms_test_10df.py
 ```
-
-# Real Life
-```
-# perception module
-roslaunch titan_perception perception.launch
-# inspection module
-roslaunch add_obstacle xarm.launch
-```
 ## Results
 ### Simulations
 #### 5DF
