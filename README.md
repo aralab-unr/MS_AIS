@@ -74,6 +74,9 @@ roslaunch add_obstacle xarm.launch
 ## Results
 ### Simulations
 #### 5DF
+<p align='center'>
+    <img src="pic/5df_ais.png" alt="drawing" width="800"/>
+</p>
 ##### MOS
 <p align='center'>
     <img src="pic/mos-5df.png" alt="drawing" width="800"/>
