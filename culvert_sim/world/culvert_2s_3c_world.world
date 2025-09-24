@@ -137,10 +137,10 @@
       <wall_time>1723058347 828343932</wall_time>
       <iterations>143723</iterations>
       <model name='bigger_rough_3crack_2spall'>
-        <pose>0.020782 0 0.202505 0 -0 0</pose>
+        <pose>0.220782 0 0.202505 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.020782 0 0.202505 0 -0 0</pose>
+          <pose>0.220782 0 0.202505 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
