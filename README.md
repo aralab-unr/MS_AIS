@@ -1,8 +1,8 @@
 # MS-AIS: Multi-Sensor Autonomous Inspection System
 **The effective operation of civil infrastructure is crucial for economic stability. To ensure continued performance, regular maintenance is essential. However, underground infrastructure, like culverts, posed more significant challenges in managing and preserving these critical assets, such as maneuverability and danger, slow labor intensive, defect localization, and superficial assessment. In this paper, we propose a cost-effective solution for infrastructure inspection through the development of MS-AIS, an autonomous inspection system. Our solution integrates multiple vision cameras, a densed LiDAR, a deep learning based defect segmentation system, lighting systems, and non-destructive evaluation (NDE) methods for a comprehensive condition assessment. The system consists of three different autonomous modes that support targeted inspection, visual inspection, and full inspection. Experimental validation simulated and real-world culverts demonstrates the effectiveness of MS-AIS in enhancing inspection effectiveness and practicality.**
 
-<p align='center'>
-    <img src="pic/v2.png" alt="drawing" width="800"/>
+<p >
+    <img src="pic/v2.png" alt="drawing" width="600"/>
 </p>
 
 ## Dependencies
